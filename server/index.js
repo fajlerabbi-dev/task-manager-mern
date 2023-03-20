@@ -1,5 +1,6 @@
+require('dotenv').config();
 const app = require('./app');
 
-app.listen(3000, () => {
-  console.log('Express server is connected!!');
+app.listen(process.env.PORT, () => {
+  console.log(`Express server is running on PORT 3000`);
 });

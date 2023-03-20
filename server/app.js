@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const { default: mongoose } = require('mongoose');
 
@@ -30,12 +31,11 @@ app.use(limiter);
 
 // database connection
 
-const uri =
-  'mongodb+srv://fajlerabbi824:fajlerr2604@task-manager-2023.nmix28y.mongodb.net/task-manager';
+const uri = process.env.DATABASE_URL;
 const options = { autoIndex: true };
 mongoose
   .connect(uri, options)
-  .then(() => console.log('Database connected'))
+  .then(() => console.log('Database connected!!'))
   .catch((err) => console.log(err));
 
 // application routes
