@@ -45,7 +45,21 @@ exports.ListTaskByStatus = (req, res) => {
 
   const pipeline = [
     { $match: { status } },
-    { $project: { _id: 0 } }
+    {
+      "$addFields": {
+        createdDate: {
+          $dateToString: {
+            date: '$createdDate',
+            format: '%d-%m-%Y'
+          }
+        }
+      }
+    },
+    {
+      $project: {
+        _id: 0
+      }
+    }
   ]
   TasksModel.aggregate(pipeline)
     .then((data) => {
