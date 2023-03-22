@@ -53,7 +53,27 @@ exports.Login = (req, res) => {
 
 exports.UserProfile = (req, res) => {
   const email = req.headers['email'];
-  UsersModel.find(email)
+  const pipeline = [
+    // match or find via email
+    { $match: { email } },
+    // hide these fields
+    { $project: { _id: 0, photo: 0 } },
+  ];
+  UsersModel.aggregate(pipeline)
+    .then((data) => {
+      res.status(200).json({ status: 'Ok', data: data });
+    })
+    .catch((err) => {
+      res.status(400).json({ status: 'Fail', data: err });
+    });
+};
+
+// Profile update
+exports.UserProfileUpdate = (req, res) => {
+  const email = req.headers['email'];
+  const reqBody = req.body;
+
+  UsersModel.updateOne({ email }, reqBody)
     .then((data) => {
       res.status(200).json({ status: 'Ok', data: data });
     })
