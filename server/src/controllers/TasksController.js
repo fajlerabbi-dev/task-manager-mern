@@ -3,6 +3,7 @@ const TasksModel = require('../models/TasksModel');
 exports.CreateTask = (req, res) => {
   const email = req.headers['email'];
   const reqBody = req.body;
+  req.body.email = email
 
   TasksModel.create(reqBody)
     .then((data) => {
@@ -44,7 +45,7 @@ exports.ListTaskByStatus = (req, res) => {
   const status = req.params.status;
 
   const pipeline = [
-    { $match: { status } },
+    { $match: { status: status, email: email } },
     {
       "$addFields": {
         createdDate: {
@@ -61,6 +62,28 @@ exports.ListTaskByStatus = (req, res) => {
       }
     }
   ]
+  TasksModel.aggregate(pipeline)
+    .then((data) => {
+      res.status(200).json({ status: 'Ok', data: data });
+    }).catch((err) => {
+      res.status(400).json({ status: 'Fail', data: err });
+    });
+}
+
+// task status count
+exports.TaskStatusCount = (req, res) => {
+  const email = req.headers['email'];
+
+  const pipeline = [
+    { $match: { email } },
+    {
+      $group: {
+        _id: "$status",
+        Total: { $count: {} }
+      }
+    }
+  ]
+
   TasksModel.aggregate(pipeline)
     .then((data) => {
       res.status(200).json({ status: 'Ok', data: data });

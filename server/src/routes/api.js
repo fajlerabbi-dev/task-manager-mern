@@ -11,6 +11,7 @@ const {
   UpdateTaskStatus,
   DeleteTask,
   ListTaskByStatus,
+  TaskStatusCount,
 } = require('../controllers/TasksController');
 const router = express.Router();
 
@@ -25,6 +26,7 @@ router.post('/create-task', AuthVerifyMiddleware, CreateTask);
 router.post('/delete-task/:id', AuthVerifyMiddleware, DeleteTask);
 router.get('/update-task-status/:id/:status', AuthVerifyMiddleware, UpdateTaskStatus);
 router.get('/list-task-by-status/:status', AuthVerifyMiddleware, ListTaskByStatus);
+router.get('/task-status-count', AuthVerifyMiddleware, TaskStatusCount);
 
 // module export
 module.exports = router;
