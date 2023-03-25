@@ -1,15 +1,14 @@
 import React, { Fragment, lazy, Suspense } from 'react'
 import LazyLoader from '../components/MasterLayout/LazyLoader';
-const ForgetPassword = lazy(() => import('../components/ForgetPassword/ForgetPassword'));
-
-const FotgetPassPage = () => {
+const NotFound = lazy(() => import('../components/NotFound/NotFound'));
+const NotFoundPage = () => {
   return (
     <Fragment>
       <Suspense fallback={<LazyLoader />}>
-        <ForgetPassword />
+        <NotFound />
       </Suspense>
     </Fragment>
   )
 }
 
-export default FotgetPassPage
+export default NotFoundPage
