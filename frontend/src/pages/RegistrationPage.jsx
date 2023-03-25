@@ -1,5 +1,6 @@
-import React, { Fragment, lazy, Suspense } from 'react'
+import React, { Fragment, lazy, Suspense } from 'react';
 import LazyLoader from '../components/MasterLayout/LazyLoader';
+
 const Registration = lazy(() => import('../components/Registration/Registration'));
 
 const RegistrationPage = () => {
