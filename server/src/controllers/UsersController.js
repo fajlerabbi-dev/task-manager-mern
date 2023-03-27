@@ -8,10 +8,10 @@ exports.Registration = (req, res) => {
 
   UsersModel.create(reqBody)
     .then((data) => {
-      res.status(201).json({ status: 'Success', data: data });
+      res.status(200).json({ status: 'Success', data: data });
     })
     .catch((err) => {
-      res.status(401).json({ status: 'Fail', data: err });
+      res.status(200).json({ status: 'Fail', data: err });
     });
 };
 
