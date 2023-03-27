@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from "react-router-dom";
 import { RegistrationRequest } from '../../APIRequest/APIRequest';
-import { ErrorToast, isEmail, isEmpty, isMobile, SuccessToast } from '../../helper/FormHelper';
+import { ErrorToast, isEmail, isEmpty, isMobile } from '../../helper/FormHelper';
 
 const Registration = () => {
   let emailRef, firstNameRef, lastNameRef, mobileRef, passwordRef, userNameRef = useRef();
@@ -37,7 +37,6 @@ const Registration = () => {
       ErrorToast("Password is Required !")
     }
     else {
-      SuccessToast('All done!');
       RegistrationRequest(userData);
     }
   }
